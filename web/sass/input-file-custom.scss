@@ -1,0 +1,41 @@
+// ==============================================
+// FORMS - Input file custom
+// ==============================================
+
+.input-custom-file {
+    padding-top: 6px;
+    font-size: 1.2rem;
+}
+
+.input-custom-file__title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.input-custom-file__content {
+    display: flex;
+}
+
+.input-custom-file__mentions {
+    margin-left: 10px;
+    margin-top: 6px;
+    color: $c-grey;
+}
+
+.input-custom-file__trigger {
+    @extend .btn;
+    padding: 6px 20px;
+    font-size: 1.2rem;
+    line-height: 1.2;
+}
+
+.input-custom-file__control {
+    @extend .visually-hidden;
+}
+
+.input-custom-file__message {
+    &.success {
+        color: green;
+        font-weight: bold;
+    }
+}
