@@ -1,0 +1,31 @@
+// ==============================================
+// HEADER - Sticky header
+// ==============================================
+
+//
+//  Desktop
+//  _____________________________________________
+
+@include breakpoint(lg) {
+    body.sticky {
+        .page-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 10;
+        }
+    }
+}
+
+//
+//  Tablets & Mobiles
+//  _____________________________________________
+
+@include breakpoint(only-lg){
+    .page-header {
+        position: sticky;
+        top: 0;
+    }
+}

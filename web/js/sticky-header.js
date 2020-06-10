@@ -4,18 +4,20 @@ define([
     'use strict';
 
     /**
-     * This widget allows to add animated scroll to target element on link click
+     * This widget allows to add sticky header
      */
     $.widget('mage.stickyHeader', {
+        windowEl: $(window),
+        bodyEl: $('body'),
+        header: $('.page-header'),
+        headerPosition: $('.page-header').offset().top,
+        headerHeight: 0,
+        hasStickyWrapper: false,
 
         /**
          * @private
          */
         _create: function () {
-            this.body = $('body');
-            this.header = $('.page-header');
-            this.isSticky = false;
-
             this._updateHeader();
             this._scrollHandler();
             this._resizeHandler();
@@ -25,11 +27,16 @@ define([
          * Update header values
          */
         _updateHeader: function(){
+            // Calculate new height
             this.headerHeight = this.header.innerHeight();
-            this.headerPos = this.header.offset().top;
 
-            if(this.isSticky){
-                this.body.css('padding-top', this.headerHeight);
+            if(this.hasStickyWrapper){
+                // Update sticky wrapper container height
+                $('.sticky-wrapper').height(this.headerHeight);
+            } else {
+                // Add sticky wrapper
+                this.header.wrap('<div class="sticky-wrapper"></div>');
+                $('.sticky-wrapper').height(this.headerHeight);
             }
         },
 
@@ -38,7 +45,7 @@ define([
          */
         _scrollHandler: function(){
             $(window).on('scroll', function() {
-                this.toggleClassHandler();
+                this._toggleClassHandler();
             }.bind(this));
         },
 
@@ -60,15 +67,11 @@ define([
         /**
          * Toggle class handler
          */
-        toggleClassHandler: function() {
-            if ( $(window).scrollTop() >= this.headerPos ) {
-                this.body.css('padding-top', this.headerHeight);
-                this.header.addClass('sticky');
-                this.isSticky = true;
+        _toggleClassHandler: function() {
+            if ( this.windowEl.scrollTop() >= this.headerPosition ) {
+                this.bodyEl.addClass('sticky');
             } else {
-                this.body.css('padding-top', 0);
-                this.header.removeClass('sticky');
-                this.isSticky = false;
+                this.bodyEl.removeClass('sticky');
             }
         }
     });
