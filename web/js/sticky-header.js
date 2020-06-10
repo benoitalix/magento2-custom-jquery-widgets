@@ -44,7 +44,7 @@ define([
          * Scroll handler
          */
         _scrollHandler: function(){
-            $(window).on('scroll', function() {
+            this.windowEl.on('scroll', function() {
                 this._toggleClassHandler();
             }.bind(this));
         },
@@ -56,7 +56,7 @@ define([
             var self = this;
             var resizeId;
 
-            $(window).on('resize', function() {
+            this.windowEl.on('resize', function() {
                 clearTimeout(resizeId);
                 resizeId = setTimeout(function(){
                     self._updateHeader();
@@ -68,7 +68,7 @@ define([
          * Toggle class handler
          */
         _toggleClassHandler: function() {
-            if ( this.windowEl.scrollTop() >= this.headerPosition ) {
+            if (this.windowEl.scrollTop() >= this.headerPosition) {
                 this.bodyEl.addClass('sticky');
             } else {
                 this.bodyEl.removeClass('sticky');
